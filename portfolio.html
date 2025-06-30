@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Kamoho Nkutu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="hero-header">
+        <div class="wrapper">
+            <header>
+                <div class="logo">
+                    <i class="fa-solid fa-a"></i>
+                    <div class="logo-text">Kamoho Nkutu</div>
+                </div>
+                <nav>
+                    <div class="togglebtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul class="navlinks">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                        <li><a href="resume.html">Resume</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <section class="portfolio-section">
+                <h1 class="section-title">My <span>Portfolio</span></h1>
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web Design</button>
+                    <button class="filter-btn" data-filter="app">App Development</button>
+                    <button class="filter-btn" data-filter="graphic">Graphic Design</button>
+                </div>
+                
+                <div class="portfolio-container">
+                    <!-- Project 1 -->
+                    <div class="portfolio-item" data-category="web">
+                        <img src="image/Picture 1.webp" alt="Web Design Project">
+                        <div class="portfolio-overlay">
+                            <h3>E-commerce Website</h3>
+                            <p>HTML, CSS, JavaScript</p>
+                            <a href="#"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="portfolio-item" data-category="app">
+                        <img src="image/Project2.webp" alt="Mobile App Project">
+                        <div class="portfolio-overlay">
+                            <h3>Fitness Tracker App</h3>
+                            <p>React Native, Firebase</p>
+                            <a href="#"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="portfolio-item" data-category="graphic">
+                        <img src="image/Project3.jpg" alt="Logo Design">
+                        <div class="portfolio-overlay">
+                            <h3>Brand Identity</h3>
+                            <p>Logo & Branding</p>
+                            <a href="#"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="portfolio-item" data-category="web">
+                        <img src="image/project4.jpg" alt="Web Application">
+                        <div class="portfolio-overlay">
+                            <h3>Task Management App</h3>
+                            <p>React, Node.js, MongoDB</p>
+                            <a href="#"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 -->
+                    <div class="portfolio-item" data-category="app">
+                        <img src="image/project5.jpg" alt="Mobile Game">
+                        <div class="portfolio-overlay">
+                            <h3>Mobile Game</h3>
+                            <p>Unity, C#</p>
+                            <a href="#"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -->
+                    <div class="portfolio-item" data-category="graphic">
+                        <img src="image/project6.jpg" alt="Poster Design">
+                        <div class="portfolio-overlay">
+                            <h3>Marketing Materials</h3>
+                            <p>Print Design</p>
+                            <a href="#"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
