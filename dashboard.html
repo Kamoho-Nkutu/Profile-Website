@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Kamoho Nkutu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="dashboard.js"></script>
+
+    <style>
+        :root {
+            --primary: #007ced;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --danger: #ef4444;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: var(--dark);
+            color: white;
+            padding: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo i {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            margin-top: 2rem;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(0, 124, 237, 0.2);
+            color: white;
+        }
+        
+        .nav-links a i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+        
+        /* Dashboard Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Editable Sections */
+        .editable-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0066c4;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Preview Toggle */
+        .preview-container {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 4px;
+            border: 1px dashed #cbd5e1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-code"></i>
+            <span>Admin Panel</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#" class="active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="index.html">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+            <a href="portfolio.html">
+                <i class="fas fa-briefcase"></i>
+                <span>Portfolio</span>
+            </a>
+            <a href="#blog">
+                <i class="fas fa-blog"></i>
+                <span>Blog</span>
+            </a>
+            <a href="#settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="#logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1>Dashboard</h1>
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/150" alt="User">
+                <span>Admin User</span>
+            </div>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="cards">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Profile Views</span>
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="card-value">1,254</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Projects</span>
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="card-value">12</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Blog Posts</span>
+                    <i class="fas fa-blog"></i>
+                </div>
+                <div class="card-value">8</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Messages</span>
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="card-value">23</div>
+            </div>
+        </div>
+        
+        <!-- Profile Editor -->
+        <section id="profile-editor" class="editable-section">
+            <div class="section-header">
+                <h2 class="section-title">Profile Information</h2>
+                <button class="btn btn-primary" id="togglePreview">Toggle Preview</button>
+            </div>
+            
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" value="Kamoho Nkutu">
+                </div>
+                
+                <div class="form-group">
+                    <label for="title">Professional Title</label>
+                    <input type="text" id="title" class="form-control" value="Frontend Developer">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" class="form-control">I'm a passionate frontend developer dedicated to creating beautiful, functional websites and applications that deliver exceptional user experiences.</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileImage">Profile Image</label>
+                    <input type="file" id="profileImage" class="form-control">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+            
+            <div class="preview-container" id="profilePreview">
+                <h3>Profile Preview</h3>
+                <div id="previewContent"></div>
+            </div>
+        </section>
+        
+        <!-- Social Links Editor -->
+        <section id="social-editor" class="editable-section">
+            <div class="section-header">
+                <h2 class="section-title">Social Media Links</h2>
+            </div>
+            
+            <form id="socialForm">
+                <div class="form-group">
+                    <label for="twitter"><i class="fab fa-twitter"></i> Twitter</label>
+                    <input type="url" id="twitter" class="form-control" placeholder="https://twitter.com/username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="linkedin"><i class="fab fa-linkedin"></i> LinkedIn</label>
+                    <input type="url" id="linkedin" class="form-control" placeholder="https://linkedin.com/in/username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="github"><i class="fab fa-github"></i> GitHub</label>
+                    <input type="url" id="github" class="form-control" placeholder="https://github.com/username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
+                    <input type="url" id="instagram" class="form-control" placeholder="https://instagram.com/username">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Update Links</button>
+            </form>
+        </section>
+        
+        <!-- Content Management -->
+        <section id="content-manager" class="editable-section">
+            <div class="section-header">
+                <h2 class="section-title">Content Management</h2>
+            </div>
+            
+            <div class="tabs">
+                <button class="btn btn-primary" data-tab="portfolio">Portfolio</button>
+                <button class="btn" data-tab="blog">Blog</button>
+                <button class="btn" data-tab="pages">Pages</button>
+            </div>
+            
+            <div class="tab-content" id="portfolioContent">
+                <h3>Portfolio Items</h3>
+                <button class="btn btn-primary" id="addProject">
+                    <i class="fas fa-plus"></i> Add New Project
+                </button>
+                
+                <div class="project-list">
+                    <!-- Projects will be loaded here dynamically -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // DOM Elements
+        const togglePreview = document.getElementById('togglePreview');
+        const profilePreview = document.getElementById('profilePreview');
+        const profileForm = document.getElementById('profileForm');
+        const previewContent = document.getElementById('previewContent');
+        
+        // Toggle Preview
+        togglePreview.addEventListener('click', function(e) {
+            e.preventDefault();
+            profilePreview.style.display = profilePreview.style.display === 'block' ? 'none' : 'block';
+            
+            // Update preview content
+            if (profilePreview.style.display === 'block') {
+                const name = document.getElementById('name').value;
+                const title = document.getElementById('title').value;
+                const bio = document.getElementById('bio').value;
+                
+                previewContent.innerHTML = `
+                    <h2>${name}</h2>
+                    <p><strong>${title}</strong></p>
+                    <p>${bio}</p>
+                `;
+            }
+        });
+        
+        // Form Submission
+        profileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Profile updated successfully!');
+            // Here you would typically send data to server
+        });
+        
+        // Social Form Submission
+        document.getElementById('socialForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Social links updated!');
+        });
+        
+        // Tab Switching
+        const tabs = document.querySelectorAll('[data-tab]');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('btn-primary'));
+                this.classList.add('btn-primary');
+                // Here you would load the appropriate content
+            });
+        });
+        
+        // Add New Project
+        document.getElementById('addProject').addEventListener('click', function() {
+            const projectHTML = `
+                <div class="project-form">
+                    <div class="form-group">
+                        <label>Project Title</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Project Description</label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Project Image</label>
+                        <input type="file" class="form-control">
+                    </div>
+                    <button class="btn btn-primary">Save Project</button>
+                    <button class="btn btn-danger">Cancel</button>
+                </div>
+            `;
+            document.querySelector('.project-list').innerHTML = projectHTML;
+        });
+    </script>
+</body>
+</html>

@@ -7,6 +7,152 @@
     <title>My Portfolio | Kamoho Nkutu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for enhanced portfolio */
+        .portfolio-section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .section-title span {
+            color: #007ced;
+        }
+        
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: #007ced;
+            color: white;
+        }
+        
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 124, 237, 0.9);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: bottom 0.3s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            bottom: 0;
+        }
+        
+        .portfolio-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .portfolio-overlay p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .portfolio-overlay a {
+            color: white;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            border: 1px solid white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .portfolio-overlay a:hover {
+            background: white;
+            color: #007ced;
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border-top-color: #007ced;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .portfolio-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="hero-header">
@@ -31,6 +177,11 @@
                     </ul>
                 </nav>
             </header>
+
+            <div class="hero-text">
+                <h5>Hi, I'm <span class="input">Frontend Developer</span></h5>
+                <h1 class="section-header" id="profile-name">Kamoho Nkutu</h1>
+            </div>
             
             <section class="portfolio-section">
                 <h1 class="section-title">My <span>Portfolio</span></h1>
@@ -41,10 +192,79 @@
                     <button class="filter-btn" data-filter="graphic">Graphic Design</button>
                 </div>
                 
-                <div class="portfolio-container">
-                    <!-- Project 1 -->
+                <div class="portfolio-container" id="portfolioContainer">
+                    <!-- Projects will be loaded dynamically here -->
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.js"></script>
+    <script>
+        // Navigation toggle
+        document.querySelector(".togglebtn").addEventListener("click", function(){
+            this.classList.toggle("click");
+            document.querySelector(".navlinks").classList.toggle("open");
+        });
+
+        // Typed.js animation
+        var typed = new Typed(".input", {
+            strings: ["Frontend Developer", "Web Designer", "UI/UX Designer", "HTML/CSS Developer", "Full Stack Developer"],
+            typeSpeed: 70,
+            backSpeed: 55,
+            loop: true
+        });
+
+        // Load profile data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load profile name from localStorage (set by admin dashboard)
+            const profileData = JSON.parse(localStorage.getItem('portfolioProfile')) || {};
+            if (profileData.name) {
+                document.getElementById('profile-name').textContent = profileData.name;
+            }
+            
+            // Load projects
+            loadProjects();
+        });
+
+        // Portfolio filtering and dynamic loading
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter projects
+                const filter = button.dataset.filter;
+                const projects = document.querySelectorAll('.portfolio-item');
+                
+                projects.forEach(project => {
+                    if (filter === 'all' || project.dataset.category === filter) {
+                        project.style.display = 'block';
+                    } else {
+                        project.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Load projects from localStorage (set by admin dashboard)
+        function loadProjects() {
+            const container = document.getElementById('portfolioContainer');
+            const projects = JSON.parse(localStorage.getItem('portfolioProjects')) || [];
+            
+            // Clear loading spinner
+            container.innerHTML = '';
+            
+            if (projects.length === 0) {
+                // Default projects if none are loaded
+                container.innerHTML = `
                     <div class="portfolio-item" data-category="web">
-                        <img src="image/Picture 1.webp" alt="Web Design Project">
+                        <img src="image/Picture1.webp" alt="Web Design Project">
                         <div class="portfolio-overlay">
                             <h3>E-commerce Website</h3>
                             <p>HTML, CSS, JavaScript</p>
@@ -52,7 +272,6 @@
                         </div>
                     </div>
                     
-                    <!-- Project 2 -->
                     <div class="portfolio-item" data-category="app">
                         <img src="image/Project2.webp" alt="Mobile App Project">
                         <div class="portfolio-overlay">
@@ -62,7 +281,6 @@
                         </div>
                     </div>
                     
-                    <!-- Project 3 -->
                     <div class="portfolio-item" data-category="graphic">
                         <img src="image/Project3.jpg" alt="Logo Design">
                         <div class="portfolio-overlay">
@@ -72,7 +290,6 @@
                         </div>
                     </div>
                     
-                    <!-- Project 4 -->
                     <div class="portfolio-item" data-category="web">
                         <img src="image/project4.jpg" alt="Web Application">
                         <div class="portfolio-overlay">
@@ -81,31 +298,41 @@
                             <a href="#"><i class="fas fa-link"></i></a>
                         </div>
                     </div>
-                    
-                    <!-- Project 5 -->
-                    <div class="portfolio-item" data-category="app">
-                        <img src="image/project5.jpg" alt="Mobile Game">
-                        <div class="portfolio-overlay">
-                            <h3>Mobile Game</h3>
-                            <p>Unity, C#</p>
-                            <a href="#"><i class="fas fa-link"></i></a>
+                `;
+            } else {
+                // Load projects from admin dashboard data
+                projects.forEach(project => {
+                    const projectHTML = `
+                        <div class="portfolio-item" data-category="${project.category || 'web'}">
+                            <img src="${project.image || 'image/default-project.jpg'}" alt="${project.title}">
+                            <div class="portfolio-overlay">
+                                <h3>${project.title}</h3>
+                                <p>${project.technologies || 'Project details'}</p>
+                                <a href="${project.url || '#'}" target="_blank"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Project 6 -->
-                    <div class="portfolio-item" data-category="graphic">
-                        <img src="image/project6.jpg" alt="Poster Design">
-                        <div class="portfolio-overlay">
-                            <h3>Marketing Materials</h3>
-                            <p>Print Design</p>
-                            <a href="#"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+                    `;
+                    container.innerHTML += projectHTML;
+                });
+            }
+            
+            // Initialize filter after loading
+            document.querySelector('.filter-btn.active').click();
+        }
 
-    <script src="script.js"></script>
+        // For a real implementation, you would replace the localStorage with API calls:
+        /*
+        async function fetchProjects() {
+            try {
+                const response = await fetch('/api/projects');
+                const projects = await response.json();
+                return projects;
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                return [];
+            }
+        }
+        */
+    </script>
 </body>
 </html>

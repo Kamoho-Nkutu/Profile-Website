@@ -7,6 +7,190 @@
     <title>My Resume | Kamoho Nkutu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Resume Section Styles */
+        .resume-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+        
+        .section-title span {
+            color: #007ced;
+        }
+        
+        .resume-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .resume-column {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .resume-heading {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007ced;
+            color: #1e293b;
+        }
+        
+        .resume-item {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .resume-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #007ced;
+        }
+        
+        .resume-item:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            bottom: -30px;
+            width: 1px;
+            background: #e2e8f0;
+        }
+        
+        .resume-item:last-child:after {
+            display: none;
+        }
+        
+        .resume-date {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .resume-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: #1e293b;
+        }
+        
+        .resume-item h4 {
+            font-size: 1rem;
+            color: #64748b;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .resume-item p {
+            color: #475569;
+            line-height: 1.6;
+        }
+        
+        /* Skills Section */
+        .skills-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .skill-item {
+            margin-bottom: 20px;
+        }
+        
+        .skill-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: #007ced;
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #007ced;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #0066c4;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 124, 237, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .resume-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animation for skill bars */
+        @keyframes slideIn {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <div class="hero-header">
@@ -35,84 +219,173 @@
             <section class="resume-section">
                 <h1 class="section-title">My <span>Resume</span></h1>
                 
-                <div class="resume-container">
-                    <div class="resume-column">
-                        <h2 class="resume-heading">Education</h2>
-                        
-                        <div class="resume-item">
-                            <div class="resume-date">2020 - 2024</div>
-                            <h3>Bachelor of Computer Science</h3>
-                            <h4>University of Technology</h4>
-                            <p>Specialized in Web Development and User Experience Design. Graduated with honors.</p>
-                        </div>
-                        
-                        <div class="resume-item">
-                            <div class="resume-date">2018 - 2020</div>
-                            <h3>High School Diploma</h3>
-                            <h4>Tech High School</h4>
-                            <p>Focus on Mathematics and Computer Science. President of Coding Club.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="resume-column">
-                        <h2 class="resume-heading">Experience</h2>
-                        
-                        <div class="resume-item">
-                            <div class="resume-date">2022 - Present</div>
-                            <h3>Frontend Developer</h3>
-                            <h4>Digital Solutions Inc.</h4>
-                            <p>Develop responsive web applications using React.js. Collaborate with UX designers to implement pixel-perfect interfaces.</p>
-                        </div>
-                        
-                        <div class="resume-item">
-                            <div class="resume-date">2020 - 2022</div>
-                            <h3>Web Design Intern</h3>
-                            <h4>Creative Web Agency</h4>
-                            <p>Created website mockups and prototypes. Assisted in frontend development using HTML, CSS, and JavaScript.</p>
-                        </div>
+                <div class="resume-container" id="resumeContent">
+                    <!-- Content will be loaded dynamically -->
+                    <div class="loading">
+                        <div class="spinner"></div>
                     </div>
                 </div>
                 
-                <div class="skills-section">
+                <div class="skills-section" id="skillsSection">
                     <h2 class="resume-heading">Technical Skills</h2>
-                    <div class="skills-container">
-                        <div class="skill-item">
-                            <h3>HTML/CSS</h3>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <h3>JavaScript</h3>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <h3>React.js</h3>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <h3>UI/UX Design</h3>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 75%"></div>
-                            </div>
-                        </div>
+                    <div class="skills-container" id="skillsContainer">
+                        <!-- Skills will be loaded dynamically -->
                     </div>
                 </div>
                 
                 <div class="download-btn">
-                    <a href="#" class="btn active">Download Full Resume</a>
+                    <a href="#" class="btn active" id="downloadResume">Download Full Resume</a>
                 </div>
             </section>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Navigation toggle
+        document.querySelector(".togglebtn").addEventListener("click", function(){
+            this.classList.toggle("click");
+            document.querySelector(".navlinks").classList.toggle("open");
+        });
+
+        // Load resume data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load from localStorage (set by admin dashboard)
+            const resumeData = JSON.parse(localStorage.getItem('portfolioResume')) || getDefaultResumeData();
+            
+            // Render resume content
+            renderResume(resumeData);
+            
+            // Animate skill bars after a short delay
+            setTimeout(animateSkillBars, 500);
+            
+            // Set up download button
+            document.getElementById('downloadResume').addEventListener('click', function(e) {
+                e.preventDefault();
+                downloadResume(resumeData);
+            });
+        });
+
+        // Default resume data if none is loaded
+        function getDefaultResumeData() {
+            return {
+                education: [
+                    {
+                        date: "2020 - 2024",
+                        degree: "Bachelor of Computer Science",
+                        institution: "University of Technology",
+                        description: "Specialized in Web Development and User Experience Design. Graduated with honors."
+                    },
+                    {
+                        date: "2018 - 2020",
+                        degree: "High School Diploma",
+                        institution: "Tech High School",
+                        description: "Focus on Mathematics and Computer Science. President of Coding Club."
+                    }
+                ],
+                experience: [
+                    {
+                        date: "2022 - Present",
+                        position: "Frontend Developer",
+                        company: "Digital Solutions Inc.",
+                        description: "Develop responsive web applications using React.js. Collaborate with UX designers to implement pixel-perfect interfaces."
+                    },
+                    {
+                        date: "2020 - 2022",
+                        position: "Web Design Intern",
+                        company: "Creative Web Agency",
+                        description: "Created website mockups and prototypes. Assisted in frontend development using HTML, CSS, and JavaScript."
+                    }
+                ],
+                skills: [
+                    { name: "HTML/CSS", level: 95 },
+                    { name: "JavaScript", level: 85 },
+                    { name: "React.js", level: 80 },
+                    { name: "UI/UX Design", level: 75 },
+                    { name: "Node.js", level: 70 },
+                    { name: "Git", level: 85 }
+                ],
+                downloadUrl: "Downloads/CV.docx"
+            };
+        }
+
+        // Render resume content
+        function renderResume(data) {
+            const resumeContent = document.getElementById('resumeContent');
+            
+            // Create education and experience columns
+            resumeContent.innerHTML = `
+                <div class="resume-column">
+                    <h2 class="resume-heading">Education</h2>
+                    ${data.education.map(item => `
+                        <div class="resume-item">
+                            <div class="resume-date">${item.date}</div>
+                            <h3>${item.degree}</h3>
+                            <h4>${item.institution}</h4>
+                            <p>${item.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="resume-column">
+                    <h2 class="resume-heading">Experience</h2>
+                    ${data.experience.map(item => `
+                        <div class="resume-item">
+                            <div class="resume-date">${item.date}</div>
+                            <h3>${item.position}</h3>
+                            <h4>${item.company}</h4>
+                            <p>${item.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Render skills
+            const skillsContainer = document.getElementById('skillsContainer');
+            skillsContainer.innerHTML = data.skills.map(skill => `
+                <div class="skill-item">
+                    <h3>${skill.name}</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" data-level="${skill.level}" style="width: 0%"></div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Set download link if available
+            if (data.downloadUrl) {
+                document.getElementById('downloadResume').href = data.downloadUrl;
+            }
+        }
+
+        // Animate skill bars
+        function animateSkillBars() {
+            const skillLevels = document.querySelectorAll('.skill-level');
+            skillLevels.forEach(bar => {
+                const level = bar.getAttribute('data-level');
+                bar.style.width = level + '%';
+            });
+        }
+
+        // Download resume function
+        function downloadResume(data) {
+            // In a real implementation, this would generate a PDF or download the file
+            alert('Downloading resume...');
+            // For a complete implementation, you could use libraries like jsPDF
+            // or simply link to an existing PDF file as shown in the href
+        }
+
+        // For a real implementation, you would replace the localStorage with API calls:
+        /*
+        async function fetchResumeData() {
+            try {
+                const response = await fetch('/api/resume');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error loading resume data:', error);
+                return getDefaultResumeData();
+            }
+        }
+        */
+    </script>
 </body>
 </html>
